@@ -48,7 +48,7 @@ def load_data():
     try:
         df = pd.read_csv('projeto_aluguel/data/data.csv')
         return df
-    except:
+    except (FileNotFoundError, pd.errors.EmptyDataError):
         # Generate sample data if file not found
         np.random.seed(42)
         n_samples = 1000
@@ -481,8 +481,10 @@ else:  # Make Predictions
         # Calculate predicted rent
         predicted_rent = base_price + bedroom_adjustment + bathroom_adjustment + garage_adjustment
         
-        # Add some random variation (±10%)
-        np.random.seed(42)
+        # Add some variation (±10%) using timestamp-based randomness
+        import time
+        variation_seed = int(time.time() * 1000) % 1000
+        np.random.seed(variation_seed)
         variation = np.random.uniform(0.9, 1.1)
         predicted_rent = predicted_rent * variation
         
