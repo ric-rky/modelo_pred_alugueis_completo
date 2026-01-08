@@ -1,71 +1,95 @@
-# Predição de Valores de Aluguel
+# Rental Price Prediction
 
-Este projeto tem como objetivo construir um modelo preditivo capaz de **estimar o valor de aluguel de imóveis** a partir de variáveis como localização, características do imóvel e atributos adicionais fornecidos no conjunto de dados.
+This project aims to build a predictive model capable of **estimating the rental value of properties** based on variables such as location, property characteristics, and additional attributes provided in the dataset.
 
-## 1. Objetivo do Projeto
+## 1. Project Objective
 
-O objetivo central é oferecer modelos que auxiliem na precificação de imóveis, permitindo:
+The central objective is to offer models that assist in property pricing, allowing:
 
-- Identificar fatores que mais influenciam o preço do aluguel;  
-- Prever de forma confiável o valor de aluguel de novos imóveis;  
-- Comparar diferentes algoritmos e estratégias de modelagem;  
-- Apoiar tomadas de decisão no mercado imobiliário.  
+- Identify factors that most influence rental prices;  
+- Reliably predict rental values of new properties;  
+- Compare different algorithms and modeling strategies;  
+- Support decision-making in the real estate market.  
 
-## 2. Preparação dos Dados
+## 2. Data Preparation
 
-- Criação da variável-alvo transformada `log_rent` (logaritmo do valor do aluguel) para corrigir assimetria;  
-- Tratamento de valores ausentes;  
-- Codificação de variáveis categóricas e padronização de variáveis numéricas;  
-- Análise exploratória (EDA) para identificar outliers e padrões de distribuição;  
-- Divisão dos dados em treino e teste para avaliação dos modelos.  
+- Creation of the transformed target variable `log_rent` (logarithm of rental value) to correct asymmetry;  
+- Treatment of missing values;  
+- Encoding of categorical variables and standardization of numerical variables;  
+- Exploratory data analysis (EDA) to identify outliers and distribution patterns;  
+- Split of data into training and test sets for model evaluation.  
 
-## 3. Resultados
+## 3. Results
 
-Foram avaliados os seguintes modelos de regressão:
+The following regression models were evaluated:
 
-- Regressão Linear (OLS)  
-- Ridge e Lasso Regression  
+- Linear Regression (OLS)  
+- Ridge and Lasso Regression  
 - Decision Tree Regressor  
 - Random Forest Regressor  
 - Gradient Boosting Regressor  
 
-As métricas consideradas foram **R²**, **MAE** e **RMSE**, tanto na escala logarítmica quanto na escala original dos valores de aluguel.  
+The metrics considered were **R²**, **MAE**, and **RMSE**, both on the logarithmic scale and on the original scale of rental values.  
 
-| Modelo                 | R²     | MAE (R$) | RMSE (R$) | Observações |
-|-------------------------|--------|----------|-----------|-------------|
-| Regressão Linear (rent) | 0.625  | 883.50   | 1,397.46  | Sem log-transform |
-| Regressão Linear (log)  | 0.710  | 1,306.20 | 0.33 (log)| Melhor ajuste que sem log |
-| Decision Tree           | 0.9934 | 67.45    | 182.87    | Forte overfitting |
-| Random Forest           | 0.9966 | 35.58    | 131.32    | Melhor equilíbrio |
-| Gradient Boosting       | 0.9916 | 116.48   | 205.67    | Bom desempenho |
+| Model                  | R²     | MAE (R$) | RMSE (R$) | Notes |
+|------------------------|--------|----------|-----------|-------|
+| Linear Regression (rent) | 0.625  | 883.50   | 1,397.46  | Without log-transform |
+| Linear Regression (log)  | 0.710  | 1,306.20 | 0.33 (log)| Better fit with log |
+| Decision Tree           | 0.9934 | 67.45    | 182.87    | Strong overfitting |
+| Random Forest           | 0.9966 | 35.58    | 131.32    | Best balance |
+| Gradient Boosting       | 0.9916 | 116.48   | 205.67    | Good performance |
 
-Destaque: **Random Forest** apresentou o melhor equilíbrio entre desempenho e generalização, alcançando **R² ≈ 0.997** e erro médio absoluto em torno de **R$ 35**.  
+Highlight: **Random Forest** showed the best balance between performance and generalization, achieving **R² ≈ 0.997** and mean absolute error around **R$ 35**.  
 
-## 4. Estratégias de Modelagem
+## 4. Modeling Strategies
 
-- Análise exploratória detalhada e tratamento da variável resposta;  
-- Comparação entre modelos lineares e baseados em árvores;  
-- Avaliação com métricas padronizadas;  
-- Interpretação de resíduos e análise de variáveis mais importantes.  
+- Detailed exploratory analysis and treatment of the response variable;  
+- Comparison between linear and tree-based models;  
+- Evaluation with standardized metrics;  
+- Interpretation of residuals and analysis of most important variables.  
 
-## 5. Ferramentas Utilizadas
+## 5. Tools Used
 
 - Python 3.12;  
-- Jupyter Notebook (execução via VSCode);  
-- Bibliotecas:
-  - `pandas` e `numpy` para manipulação de dados;  
-  - `matplotlib` e `seaborn` para visualização;  
-  - `scikit-learn` e `statsmodels` para modelagem;  
+- Jupyter Notebook (executed via VSCode);  
+- Libraries:
+  - `pandas` and `numpy` for data manipulation;  
+  - `matplotlib` and `seaborn` for visualization;  
+  - `scikit-learn` and `statsmodels` for modeling;  
+  - `streamlit` for interactive web application;  
 
-## 6. Possíveis Melhorias
+## 6. Interactive Streamlit Application
 
-- Implementação de um `Pipeline` completo com `ColumnTransformer`;  
-- Aplicação de validação cruzada para maior robustez;  
-- Inclusão de técnicas de seleção de variáveis e análise de multicolinearidade;  
-- Testes com algoritmos adicionais (XGBoost, LightGBM, CatBoost);  
-- Desenvolvimento de um modelo deployável (API ou dashboard interativo).  
+This project includes an interactive web application built with Streamlit that provides:
 
-## Autor
+- **Home**: Project overview, objectives, and technologies used
+- **Data Exploration**: Sample data visualization, descriptive statistics, distribution plots, and correlation heatmap
+- **Model Performance**: Model comparison with metrics (R², MAE, RMSE), performance charts, and mathematical formulas
+- **Make Predictions**: Interactive form to input property characteristics and get instant rental price predictions with confidence intervals
+
+### Running the Application
+
+To run the Streamlit application:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+streamlit run app.py
+```
+
+The application will open in your browser at `http://localhost:8501`
+
+## 7. Possible Improvements
+
+- Implementation of a complete `Pipeline` with `ColumnTransformer`;  
+- Application of cross-validation for greater robustness;  
+- Inclusion of variable selection techniques and multicollinearity analysis;  
+- Testing with additional algorithms (XGBoost, LightGBM, CatBoost);  
+- Development of a deployable model (API or interactive dashboard).  
+
+## Author
 
 **Ricardo Luís Bertolucci Filho**  
 
@@ -75,4 +99,4 @@ Destaque: **Random Forest** apresentou o melhor equilíbrio entre desempenho e g
 
 ##
 
-Notebook principal: [`projeto_aluguel.ipynb`](https://github.com/ric-rky/Predicao-de-valores-de-aluguel/blob/main/projeto_aluguel.ipynb)
+Main Notebook: [`projeto_aluguel.ipynb`](https://github.com/ric-rky/Predicao-de-valores-de-aluguel/blob/main/projeto_aluguel.ipynb)
